@@ -2,6 +2,7 @@ import "./globals.css";
 import { UserProvider } from "../context/UserContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import GlobalNotification from "../components/GlobalNotification";
 import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={"antialiased flex flex-col min-h-screen"}>
                 <UserProvider>
+                    <GlobalNotification />
                     <Navbar />
                     <main className="flex-grow">
                         {children}

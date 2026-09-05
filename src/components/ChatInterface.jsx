@@ -175,7 +175,9 @@ export default function ChatInterface({ title, apiEndpoint, icon, receiverRole }
     }
   }
 
-  useEffect(scrollToBottom, [messages])
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   return (
     <div className="flex flex-col h-screen bg-[#f9fbfc] text-black px-20 mx-20">

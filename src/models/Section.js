@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 
 const SectionSchema = new Schema({
   section_text: {
@@ -17,6 +17,7 @@ const SectionSchema = new Schema({
   timestamps: true, // optional, adds createdAt and updatedAt
 });
 
-const Section = model('Section', SectionSchema);
+import mongoose from 'mongoose';
+const Section = mongoose.models.Section || mongoose.model('Section', SectionSchema);
 
-export default Section;
+export default Section; 

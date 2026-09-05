@@ -2,6 +2,7 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Camera, Trash, Check, X } from "lucide-react";
 import PopupModal from "../../components/PopupModal";
 import ProblemSelect from "../../components/ProblemSelect";
@@ -131,11 +132,13 @@ export default function ProfilePage() {
           },
           body: JSON.stringify({ description, problem: problems }),
         });
-        const data = await res.json();
-        if (data.success) {
-          setVolunteerInfo(data.updatedVolunteer);
-        } else {
-          setPopup({ type: "error", message: "Failed to update volunteer info" });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            setVolunteerInfo(data.updatedVolunteer);
+          } else {
+            setPopup({ type: "error", message: "Failed to update volunteer info" });
+          }
         }
       } catch (error) {
         console.error("Volunteer update failed:", error);
@@ -166,7 +169,7 @@ export default function ProfilePage() {
           )}
 
           <img
-            src={user.image}
+            src={user.image || "/images/default.jpg"}
             alt="Profile"
             className="w-full h-full object-cover rounded-full border"
           />
@@ -235,8 +238,8 @@ export default function ProfilePage() {
         </div>
 
         <div className="flex justify-center gap-6 mt-4">
-          <a href="#" className="text-blue-600 hover:underline font-medium">My Calls</a>
-          <a href="#" className="text-blue-600 hover:underline font-medium">My Chats</a>
+          <Link href="/myCalls" className="text-blue-600 hover:underline font-medium">My Calls</Link>
+          <Link href="/myChats" className="text-blue-600 hover:underline font-medium">My Chats</Link>
         </div>
 
         {volunteerInfo && (

@@ -1,7 +1,6 @@
 import { connect } from "../../../dbConfig/dbConfig";
 import Call from "../../../models/call";
 import { NextResponse } from "next/server";
-import { createRoom } from "../../../utils/createHMSRoom";
 
 export async function POST(req) {
     try {
@@ -34,15 +33,8 @@ export async function POST(req) {
             }, { status: 409 });
         }
 
-        // ✅ Only now create the room
-        const roomUrl = await createRoom();
-
-        if (!roomUrl) {
-            return NextResponse.json({
-                success: false,
-                message: "Failed to create room URL"
-            }, { status: 500 });
-        }
+        // ✅ Create a unique room ID
+        const roomUrl = `${userId}-${Date.now()}`;
 
         const newCall = await Call.create({
             userId,

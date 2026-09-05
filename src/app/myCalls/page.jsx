@@ -47,13 +47,18 @@ export default function MyCallsPage() {
     }
 
     async function handleJoinCall(call) {
-        let roomUrl = call.roomUrl;
-        if (!roomUrl) {
-            const res = await fetch('/api/createRoom');
-            const data = await res.json();
-            roomUrl = data.url;
-        }
-        window.open(roomUrl, '_blank', 'width=800,height=600');
+        // --- 100ms Implementation (Commented out for easy rollback) ---
+        // let roomUrl = call.roomUrl;
+        // if (!roomUrl) {
+        //     const res = await fetch('/api/createRoom');
+        //     const data = await res.json();
+        //     roomUrl = data.url;
+        // }
+        // window.open(roomUrl, '_blank', 'width=800,height=600');
+
+        // --- Custom WebRTC Implementation ---
+        // Route to the new custom WebRTC call page using the call's database ID as the room ID
+        router.push(`/call/${call._id}`);
     }
 
     function renderCallCard(call, otherPerson, roleLabel) {
